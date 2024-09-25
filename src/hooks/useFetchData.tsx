@@ -52,7 +52,7 @@ const useWeatherData = () => {
         )
       );
     } catch (error) {
-      setError("Error fetching data. Please try again.");
+      setError("No se logró hacer la petición");
       console.error("Error fetching data", error);
     } finally {
       setLoading(false);

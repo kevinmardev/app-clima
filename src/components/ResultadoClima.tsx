@@ -9,15 +9,15 @@ export default function ResultadoClima({
   error,
 }: ResultadoClimaProps) {
   if (loading) {
-    return <p>Cargando datos...</p>;
+    return <p style={{marginTop:'50px'}}>Cargando datos...</p>;
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p style={{marginTop:'50px'}}>{error}</p>;
   }
 
   if (!weatherData || !forecastData.length) {
-    return <p>No hay datos disponibles</p>;
+    return <p style={{marginTop:'50px'}}>No hay datos disponibles</p>;
   }
 
   return (

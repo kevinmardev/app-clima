@@ -27,8 +27,10 @@ function App() {
   };
 
   return (
+    <>
+    <div className="background"></div>
     <div className="container">
-      <h1>Mi APP</h1>
+      <h1 style={{marginBottom:'50px'}}>Aplicación del clima</h1>
 
       {/* Componente Formulario */}
       <Form
@@ -53,6 +55,7 @@ function App() {
         error={error}
       />
     </div>
+    </>
   );
 }
 
