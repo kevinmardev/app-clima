@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { IClima, IForecast } from "../interfaces/IClima.interface"; // Asegúrate de importar la interfaz de previsión si la usas
+import { IClima, IForecast } from "../interfaces/IClima.interface";
 
 const useWeatherData = () => {
   const [weatherData, setWeatherData] = useState<IClima | null>(null);
@@ -11,38 +11,46 @@ const useWeatherData = () => {
   const fetchData = async ({
     city,
     codigoPostal,
+    lat,
+    lon,
   }: {
     city?: string;
     codigoPostal?: string;
+    lat?: number;
+    lon?: number;
   }) => {
     setLoading(true);
     setError(null);
 
     try {
-      const query = codigoPostal ? `${codigoPostal}` : `${city}`;
+      let query = "";
+      if (lat && lon) {
+        query = `lat=${lat}&lon=${lon}`;
+      } else if (codigoPostal) {
+        query = `q=${codigoPostal}`;
+      } else if (city) {
+        query = `q=${city}`;
+      }
 
       const [weatherResponse, forecastResponse] = await Promise.all([
         axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${query}&appid=${
+          `https://api.openweathermap.org/data/2.5/weather?${query}&appid=${
             import.meta.env.VITE_API_KEY
           }&units=metric&lang=es`
         ),
         axios.get(
-          `https://api.openweathermap.org/data/2.5/forecast?q=${query}&appid=${
+          `https://api.openweathermap.org/data/2.5/forecast?${query}&appid=${
             import.meta.env.VITE_API_KEY
           }&units=metric&lang=es`
         ),
       ]);
 
       setWeatherData(weatherResponse.data);
-      setForecastData(forecastResponse.data);
-      setWeatherData(weatherResponse.data);
-
-      // Filtrar los datos para obtener una predicción diaria a las 12:00 pm
-      const filteredForecast = forecastResponse.data.list.filter(
-        (item: IForecast["list"][0]) => item.dt_txt.includes("12:00:00")
+      setForecastData(
+        forecastResponse.data.list.filter((item: IForecast["list"][0]) =>
+          item.dt_txt.includes("12:00:00")
+        )
       );
-      setForecastData(filteredForecast);
     } catch (error) {
       setError("Error fetching data. Please try again.");
       console.error("Error fetching data", error);

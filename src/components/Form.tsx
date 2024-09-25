@@ -4,6 +4,12 @@ import { Box, TextField } from "@mui/material";
 interface HijoProps {
   ciudad: string;
   setCiudad: React.Dispatch<React.SetStateAction<string>>;
+  lat: string;
+  setLat: React.Dispatch<React.SetStateAction<string>>;
+  lon: string;
+  setLon: React.Dispatch<React.SetStateAction<string>>;
+  codigoPostal: string;
+  setCodigoPostal: React.Dispatch<React.SetStateAction<string>>;
   buscarClima: () => void;
   error: string | null;
   loading: boolean;
@@ -12,6 +18,12 @@ interface HijoProps {
 export default function Form({
   ciudad,
   setCiudad,
+  lat,
+  setLat,
+  lon,
+  setLon,
+  codigoPostal,
+  setCodigoPostal,
   buscarClima,
   error,
   loading,
@@ -21,44 +33,69 @@ export default function Form({
     buscarClima(); // Llama a la función para buscar el clima
   };
 
-  // const onsubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   console.log("enviando");
-  // };
-
   return (
     <div>
-      {/* formulaio credo con la libreria de Matril UI */}
       <Box
         sx={{
           display: "grid",
           gap: 2,
           justifyContent: "center",
           alignItems: "center",
-          maxWidth: "200px",
+          maxWidth: "300px",
         }}
         component="form"
         autoComplete="off"
-        onSubmit={onsubmit} //Llama a la función para buscar el clima
+        onSubmit={onsubmit}
       >
+        {/* Input de ciudad */}
         <TextField
           id="ciudad"
           label="Ciudad"
           variant="standard"
           size="small"
           fullWidth
-          required
           value={ciudad}
           onChange={(e) => setCiudad(e.target.value)}
-          helperText={error}
+        />
+
+        {/* Input de código postal */}
+        <TextField
+          id="codigoPostal"
+          label="Código Postal"
+          variant="standard"
+          size="small"
+          fullWidth
+          value={codigoPostal}
+          onChange={(e) => setCodigoPostal(e.target.value)}
+        />
+
+        {/* Input de latitud */}
+        <TextField
+          id="latitud"
+          label="Latitud"
+          variant="standard"
+          size="small"
+          fullWidth
+          value={lat}
+          onChange={(e) => setLat(e.target.value)}
+        />
+
+        {/* Input de longitud */}
+        <TextField
+          id="longitud"
+          label="Longitud"
+          variant="standard"
+          size="small"
+          fullWidth
+          value={lon}
+          onChange={(e) => setLon(e.target.value)}
         />
 
         <LoadingButton
           type="submit"
           loading={loading}
-          loadingIndicator="Loading…"
+          loadingIndicator="Buscando..."
           variant="contained"
-          // onClick={handleClick}
         >
           Buscar
         </LoadingButton>
