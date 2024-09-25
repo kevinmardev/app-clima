@@ -49,6 +49,7 @@ export interface IForecast {
     weather: [
       {
         description: string;
+        icon: string;
       }
     ];
     clouds: {

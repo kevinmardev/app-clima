@@ -25,23 +25,26 @@ export default function Form({
   codigoPostal,
   setCodigoPostal,
   buscarClima,
-  error,
   loading,
 }: HijoProps) {
   const onsubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     buscarClima(); // Llama a la función para buscar el clima
+    setCiudad("");
+    setCodigoPostal("");
+    setLat("");
+    setLon("");
   };
 
   return (
     <div>
       <Box
         sx={{
-          display: "grid",
+          display: "flex",
           gap: 2,
           justifyContent: "center",
           alignItems: "center",
-          maxWidth: "300px",
+          
         }}
         component="form"
         autoComplete="off"
@@ -96,6 +99,7 @@ export default function Form({
           loading={loading}
           loadingIndicator="Buscando..."
           variant="contained"
+          fullWidth
         >
           Buscar
         </LoadingButton>

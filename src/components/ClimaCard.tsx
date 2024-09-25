@@ -39,7 +39,7 @@ const ClimaCard: React.FC<{ weatherData: IClima | null }> = ({
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <Typography variant="h6">
-              {icon}
+            <span style={{paddingRight:'10px'}}>{icon}</span>
               Temperatura: {weatherData.main.temp}°C
             </Typography>
           </Grid>
@@ -48,13 +48,13 @@ const ClimaCard: React.FC<{ weatherData: IClima | null }> = ({
           </Grid>
           <Grid item xs={6}>
             <Typography variant="h6">
-              <Cloud fontSize="medium" />
-              Clima: {weatherData.weather[0]?.description}
+              <Cloud  fontSize="medium" /> 
+               Clima: {weatherData.weather[0]?.description}
             </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography variant="h6">
-              <Air fontSize="large" />
+              <Air  fontSize="large" />
               Viento: {weatherData.wind.speed} m/s
             </Typography>
           </Grid>
