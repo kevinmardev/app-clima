@@ -9,12 +9,12 @@ const useWeatherData = () => {
   const [error, setError] = useState<string | null>(null);
 
   const fetchData = async ({
-    city,
-    codigoPostal,
+    placeSearch,
     lat,
     lon,
   }: {
     city?: string;
+    placeSearch?: string;
     codigoPostal?: string;
     lat?: number;
     lon?: number;
@@ -26,30 +26,27 @@ const useWeatherData = () => {
       let query = "";
       if (lat && lon) {
         query = `lat=${lat}&lon=${lon}`;
-      } else if (codigoPostal) {
-        query = `q=${codigoPostal}`;
-      } else if (city) {
-        query = `q=${city}`;
+      } else {
+        query = `q=${placeSearch}`;
       }
-
       const [weatherResponse, forecastResponse] = await Promise.all([
         axios.get(
           `https://api.openweathermap.org/data/2.5/weather?${query}&appid=${
             import.meta.env.VITE_API_KEY
-          }&units=metric&lang=es`
+          }&units=metric&lang=es`,
         ),
         axios.get(
           `https://api.openweathermap.org/data/2.5/forecast?${query}&appid=${
             import.meta.env.VITE_API_KEY
-          }&units=metric&lang=es`
+          }&units=metric&lang=es`,
         ),
       ]);
 
       setWeatherData(weatherResponse.data);
       setForecastData(
         forecastResponse.data.list.filter((item: IForecast["list"][0]) =>
-          item.dt_txt.includes("12:00:00")
-        )
+          item.dt_txt.includes("12:00:00"),
+        ),
       );
     } catch (error) {
       setError("No se logró hacer la petición");

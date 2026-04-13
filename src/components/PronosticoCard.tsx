@@ -7,8 +7,10 @@ const PronosticoCard: React.FC<{ forecastData: IForecast["list"] }> = ({
   return (
     <div className="card">
       <div className="card-content">
-        <h4> Pronóstico de 5 días</h4>
-        <PronosticoItemCard forecastData={forecastData} />
+        <h4> Pronóstico para los próximos 5 días</h4>
+        <div className="row">
+          <PronosticoItemCard forecastData={forecastData} />
+        </div>
       </div>
     </div>
   );

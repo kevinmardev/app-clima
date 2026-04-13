@@ -1,74 +1,78 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  .container{
-    /* background: lightgray; */
-    min-height: 100vh;
-    width: 100%;
-    color: #000;
-    text-align: center;
-    font-family: "Poppins", sans-serif;
-    padding: 0.1px;
-  
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .container h1{
-    margin-top: 50px;
-  }  
+body {
+  /* 1. Aseguramos que cubra toda la pantalla y crezca con el contenido */
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+
+  /* 2. Definimos dos fondos: 
+     Primero: Las líneas de la cuadrícula (transparentes/blancas)
+     Segundo: El gradiente de clima */
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(180deg, #4facfe 0%, #00f2fe 100%);
+  /* Gradiente de clima */
+
+  /* 3. Ajustamos el tamaño:
+     Las primeras dos medidas son para los cuadros (6rem x 4rem)
+     La última es para que el gradiente ocupe todo el fondo */
+  background-size: 6rem 4rem, 6rem 4rem, 100% 100%;
+
+  /* 4. Evitamos que el gradiente se repita si el contenido es muy largo */
+  background-attachment: fixed;
+}
+
+.container {
+  /* background: lightgray; */
+  min-height: 100vh;
+  width: 100%;
+  color: #000;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  padding: 0.1px;
 
 
-  .container-clima{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 200px;
-  }
+  display: flex;
+  flex-direction: column;
+  /*jajajaja */
+  align-items: center;
+}
 
-  .clima-item{
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    color: #000;
-  }
+.container-clima {
+  display: flex;
+}
 
-  .background-1 {
-    position: absolute;
-    top: 0;
-    z-index: -2;
-    height: 100vh;
-    width: 100vw;
-    background-color: white;
-    background: radial-gradient(100% 50% at 50% 0%, rgba(0, 163, 255, 0.3) 0%, rgba(0, 163, 255, 0) 50%, rgba(0, 163, 255, 0) 100%);
-  }
-  
-  .background {
-    position: absolute;
-    inset: 0;
-    z-index: -10;
-    height: 100%;
-    width: 100%;
-    background-color: white;
-    background-image: 
-      linear-gradient(to right, #f0f0f0 1px, transparent 1px), 
-      linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
-    background-size: 6rem 4rem;
-  }
-  
-  .background {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: radial-gradient(circle 800px at 50% 200px, #C9EBFF, transparent);
-  }
-  
+.clima-item {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #000;
+}
+
+.row {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.padding-1rem {
+  padding: 1rem;
+}
+
+.margin-1rem {
+  margin: 1rem;
+}
+
+.glass {
+  max-width: max-content;
+}

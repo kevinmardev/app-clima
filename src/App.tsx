@@ -1,51 +1,103 @@
 import { useState } from "react";
 import "./App.css";
-import Form from "./components/Form";
 import ResultadoClima from "./components/ResultadoClima";
 import useWeatherData from "./hooks/useFetchData";
+import { LoadingButton } from "@mui/lab";
+import { TextField } from "@mui/material";
 
 function App() {
-  const [ciudad, setCiudad] = useState("");
+  const [isShowInputs, setIsShowInputs] = useState(true);
+  const [placeSearch, setPlaceSearch] = useState("");
   const [lat, setLat] = useState("");
   const [lon, setLon] = useState("");
-  const [codigoPostal, setCodigoPostal] = useState("");
 
   // Hook personalizado para traer los datos del pronóstico del clima actual y pronóstico de 5 días
   const { weatherData, forecastData, loading, error, fetchData } =
     useWeatherData();
 
   // Función para buscar el clima
-  const handleBuscarClima = () => {
+  const handleBuscarClima = (e: any) => {
+    e.preventDefault();
     // Priorizar la búsqueda por coordenadas si se han proporcionado
     if (lat && lon) {
       fetchData({ lat: parseFloat(lat), lon: parseFloat(lon) });
-    } else if (codigoPostal) {
-      fetchData({ codigoPostal });
     } else {
-      fetchData({ city: ciudad });
+      fetchData({ placeSearch });
     }
   };
 
   return (
-    <>
-    <div className="background"></div>
     <div className="container">
-      <h1 style={{marginBottom:'50px'}}>Aplicación del clima</h1>
+      <div className="row margin-1rem">
+        <h1>Indague sobre la situacion climática</h1>
+      </div>
 
-      {/* Componente Formulario */}
-      <Form
-        ciudad={ciudad}
-        setCiudad={setCiudad}
-        lat={lat}
-        setLat={setLat}
-        lon={lon}
-        setLon={setLon}
-        codigoPostal={codigoPostal}
-        setCodigoPostal={setCodigoPostal}
-        buscarClima={handleBuscarClima}
-        error={error}
-        loading={loading}
-      />
+      <div className="glass">
+        <div className="row">
+          <h3>Consulte el clima mediante</h3>
+
+          <LoadingButton
+            type="button"
+            variant="text"
+            size="large"
+            onClick={() => setIsShowInputs(true)}
+          >
+            Ciuadad/Codigo postal
+          </LoadingButton>
+
+          <LoadingButton
+            type="button"
+            size="large"
+            variant="text"
+            onClick={() => setIsShowInputs(false)}
+          >
+            Coordenadas
+          </LoadingButton>
+        </div>
+
+        <form className="max-width" onSubmit={handleBuscarClima}>
+          <div className="row ">
+            {isShowInputs ? (
+              <TextField
+                name="placeSearch"
+                placeholder="Ej: Madrid o 15022"
+                variant="standard"
+                fullWidth
+                size="medium"
+                value={placeSearch}
+                onChange={(e) => setPlaceSearch(e.target.value)}
+              />
+            ) : (
+              <>
+                {" "}
+                <TextField
+                  id="latitud"
+                  placeholder="latitud"
+                  variant="standard"
+                  size="medium"
+                  fullWidth
+                  value={lat}
+                  onChange={(e) => setLat(e.target.value)}
+                />
+                <TextField
+                  id="longitud"
+                  placeholder="longitud"
+                  variant="standard"
+                  size="medium"
+                  fullWidth
+                  value={lon}
+                  onChange={(e) => setLon(e.target.value)}
+                />
+              </>
+            )}
+            <div>
+              <LoadingButton type="submit" size="small" variant="outlined">
+                Buscar
+              </LoadingButton>
+            </div>
+          </div>
+        </form>
+      </div>
 
       {/* Componente que muestra los datos obtenidos de la API */}
       <ResultadoClima
@@ -55,7 +107,6 @@ function App() {
         error={error}
       />
     </div>
-    </>
   );
 }
 
