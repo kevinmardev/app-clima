@@ -27,86 +27,89 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <div className="row margin-1rem">
-        <h1>Indague sobre la situacion climática</h1>
-      </div>
-
-      <div className="glass">
-        <div className="row">
-          <h3>Consulte el clima mediante</h3>
-
-          <LoadingButton
-            type="button"
-            variant="text"
-            size="large"
-            onClick={() => setIsShowInputs(true)}
-          >
-            Ciuadad/Codigo postal
-          </LoadingButton>
-
-          <LoadingButton
-            type="button"
-            size="large"
-            variant="text"
-            onClick={() => setIsShowInputs(false)}
-          >
-            Coordenadas
-          </LoadingButton>
+    <>
+      <div className="background"></div>
+      <div className="container">
+        <div className="row margin-1rem">
+          <h1>Indague sobre la situacion climática</h1>
         </div>
 
-        <form className="max-width" onSubmit={handleBuscarClima}>
-          <div className="row ">
-            {isShowInputs ? (
-              <TextField
-                name="placeSearch"
-                placeholder="Ej: Madrid o 15022"
-                variant="standard"
-                fullWidth
-                size="medium"
-                value={placeSearch}
-                onChange={(e) => setPlaceSearch(e.target.value)}
-              />
-            ) : (
-              <>
-                {" "}
-                <TextField
-                  id="latitud"
-                  placeholder="latitud"
-                  variant="standard"
-                  size="medium"
-                  fullWidth
-                  value={lat}
-                  onChange={(e) => setLat(e.target.value)}
-                />
-                <TextField
-                  id="longitud"
-                  placeholder="longitud"
-                  variant="standard"
-                  size="medium"
-                  fullWidth
-                  value={lon}
-                  onChange={(e) => setLon(e.target.value)}
-                />
-              </>
-            )}
-            <div>
-              <LoadingButton type="submit" size="small" variant="outlined">
-                Buscar
-              </LoadingButton>
-            </div>
-          </div>
-        </form>
-      </div>
+        <div className="glass">
+          <div className="row">
+            <h3>Consulte el clima mediante</h3>
 
-      {/* Componente que muestra los datos obtenidos de la API */}
-      <ResultadoClima
-        weatherData={weatherData}
-        forecastData={forecastData}
-        loading={loading}
-        error={error}
-      />
-    </div>
+            <LoadingButton
+              type="button"
+              variant="text"
+              size="large"
+              onClick={() => setIsShowInputs(true)}
+            >
+              Ciuadad/Codigo postal
+            </LoadingButton>
+
+            <LoadingButton
+              type="button"
+              size="large"
+              variant="text"
+              onClick={() => setIsShowInputs(false)}
+            >
+              Coordenadas
+            </LoadingButton>
+          </div>
+
+          <form className="max-width" onSubmit={handleBuscarClima}>
+            <div className="row ">
+              {isShowInputs ? (
+                <TextField
+                  name="placeSearch"
+                  placeholder="Ej: Madrid o 15022"
+                  variant="standard"
+                  fullWidth
+                  size="medium"
+                  value={placeSearch}
+                  onChange={(e) => setPlaceSearch(e.target.value)}
+                />
+              ) : (
+                <>
+                  {" "}
+                  <TextField
+                    id="latitud"
+                    placeholder="latitud"
+                    variant="standard"
+                    size="medium"
+                    fullWidth
+                    value={lat}
+                    onChange={(e) => setLat(e.target.value)}
+                  />
+                  <TextField
+                    id="longitud"
+                    placeholder="longitud"
+                    variant="standard"
+                    size="medium"
+                    fullWidth
+                    value={lon}
+                    onChange={(e) => setLon(e.target.value)}
+                  />
+                </>
+              )}
+              <div>
+                <LoadingButton type="submit" size="small" variant="outlined">
+                  Buscar
+                </LoadingButton>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        {/* Componente que muestra los datos obtenidos de la API */}
+        <ResultadoClima
+          weatherData={weatherData}
+          forecastData={forecastData}
+          loading={loading}
+          error={error}
+        />
+      </div>
+    </>
   );
 }
 
