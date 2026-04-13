@@ -9,6 +9,7 @@ const ClimaCard: React.FC<{ weatherData: IClima | null }> = ({
 }) => {
   if (!weatherData) {
     // Si no hay datos, retornamos null o un mensaje opcional
+
     return (
       <Typography variant="h6" color="error">
         No hay datos de clima disponibles.
@@ -34,34 +35,44 @@ const ClimaCard: React.FC<{ weatherData: IClima | null }> = ({
     >
       <CardContent sx={{ justifyContent: "center" }}>
         <Typography variant="h4" component="div">
-          Clima en {weatherData.sys.country}
+          <div className="row">Ciudad: {weatherData.name}</div>
         </Typography>
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <Typography variant="h6">
-            <span style={{paddingRight:'10px'}}>{icon}</span>
-              Temperatura: {weatherData.main.temp}°C
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="h6">Ciudad: {weatherData.name}</Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="h6">
-              <Cloud  fontSize="medium" /> 
-               Clima: {weatherData.weather[0]?.description}
+              <div className="row">
+                <span>{icon}</span>
+                Temperatura: {weatherData.main.temp}°C
+              </div>
             </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography variant="h6">
-              <Air  fontSize="large" />
-              Viento: {weatherData.wind.speed} m/s
+              <div className="row">País: {weatherData.sys.country}</div>
             </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography variant="h6">
-              <Water fontSize="large" />
-              Humedad: {weatherData.main.humidity}%
+              <div className="row">
+                <Cloud fontSize="medium" />
+                Clima: {weatherData.weather[0]?.description}
+              </div>
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="h6">
+              <div className="row">
+                <Air fontSize="large" />
+                Viento: {weatherData.wind.speed} m/s
+              </div>
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="h6">
+              <div className="row">
+                <Water fontSize="large" />
+                Humedad: {weatherData.main.humidity}%
+              </div>
             </Typography>
           </Grid>
         </Grid>
